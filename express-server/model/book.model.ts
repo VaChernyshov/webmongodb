@@ -2,6 +2,10 @@ import * as mongoose from 'mongoose';
 
 export interface BookModel extends mongoose.Document {
   title: string;
+  authors?: string[];
+  description?: string;
+  isbn?: string;
+  date?: Date;
 }
 
 export const bookSchema = new mongoose.Schema({
