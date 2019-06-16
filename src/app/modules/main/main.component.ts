@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+import { BookDataService } from '../../services/book-data-service';
 
 @Component({
   selector: 'main',
@@ -16,7 +17,7 @@ export class MainComponent implements OnInit {
   @HostBinding('class.main-host')
   private hostClass: boolean = true;
 
-  constructor() {
+  constructor(private dataService: BookDataService) {
   }
 
   ngOnInit() {
@@ -24,6 +25,10 @@ export class MainComponent implements OnInit {
 
   public toggleSidenav() {
     this.sidenav.toggle();
+    this.dataService.getAll()
+      .subscribe((data) => {
+        console.log('data', data);
+      })
   }
 
 }

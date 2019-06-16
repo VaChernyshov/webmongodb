@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookFormModule } from '../../components/book-form/book-form.module';
 import { MatButtonModule, MatSidenavModule } from '@angular/material';
 import { BookTableModule } from '../../components/book-table/book-table.module';
+import { BookDataService } from '../../services/book-data-service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { BookTableModule } from '../../components/book-table/book-table.module';
   ],
   exports: [MainComponent],
   declarations: [MainComponent],
-  providers: [],
+  providers: [BookDataService],
 })
 export class MainModule {
 }

@@ -14,6 +14,11 @@ mongoose.connect('mongodb://localhost:27017/library', (err: any) => {
   }
 });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 app.get('/', book.allBooks);
 app.get('/:id', book.getBook);
