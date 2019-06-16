@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'main',
@@ -7,9 +8,22 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('sidenav')
+  public sidenav: MatSidenav;
+
+  public opened: boolean = false;
+
+  @HostBinding('class.main-host')
+  private hostClass: boolean = true;
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  public toggleSidenav() {
+    this.sidenav.toggle();
   }
 
 }

@@ -1,0 +1,24 @@
+<div class="book-form__inner" [formGroup]="formGroup">
+  <mat-form-field>
+    <input [formControlName]="'title'" matInput placeholder="Title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [formControlName]="'isbn'" matInput placeholder="ISBN">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [formControlName]="'date'" [matDatepicker]="bookDate" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="bookDate"></mat-datepicker-toggle>
+    <mat-datepicker #bookDate></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea [formControlName]="'description'" matInput placeholder="Description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <ngx-mat-file-input [formControlName]="'image'" placeholder="Cover" ></ngx-mat-file-input>
+  </mat-form-field>
+</div>
+<!--<pre>{{formGroup.value | json}}</pre>-->

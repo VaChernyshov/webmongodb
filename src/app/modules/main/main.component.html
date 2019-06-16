@@ -1,1 +1,9 @@
-<h1>Main Module</h1>
+<mat-sidenav-container [autosize]="true">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <book-form></book-form>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <button mat-button (click)="toggleSidenav()">Toggle</button>
+  </mat-sidenav-content>
+</mat-sidenav-container>

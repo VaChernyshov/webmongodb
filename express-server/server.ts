@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost:27017/library', (err: any) => {
   if (err) {
     console.log(err.message);
   } else {
-    console.log('Succesfully Connected!');
+    console.log('Successfully connected!');
   }
 });
 
@@ -24,15 +24,3 @@ app.delete('/:id', book.deleteBook);
 app.listen(port, () => {
   console.log('Server is running');
 });
-
-// const express = require('express');
-// const mongoClient = MongoClient;
-//
-// import { Application } from 'express';
-//
-// const app: Application = express();
-// const port = 8000;
-//
-// app.listen(port, () => {
-//   console.log('We are live on ' + port);
-// });
