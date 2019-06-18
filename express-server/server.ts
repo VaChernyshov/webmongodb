@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as book from './book-api';
 import { Application } from 'express';
 import * as mongoose from 'mongoose';
+import * as parser from 'body-parser';
 
 const port = 8000;
 const app: Application = express();
@@ -14,9 +15,12 @@ mongoose.connect('mongodb://localhost:27017/library', (err: any) => {
   }
 });
 
+app.use(parser.urlencoded());
+app.use(parser.json());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.type('json');
   next();
 });
 

@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Book } from '../../models/Book';
 
@@ -9,24 +9,15 @@ import { Book } from '../../models/Book';
 
 export class BookTableComponent implements OnInit {
 
-  public displayedColumns: string[];
+  @Input()
+  public books: MatTableDataSource<Book>;
 
-  public tempData: MatTableDataSource<Book>;
+  public displayedColumns: string[];
 
   @HostBinding('class.book-table')
   private hostClass: boolean = true;
 
-  constructor() {
-  }
-
   ngOnInit() {
-    this.displayedColumns = ['title'];
-    const data: Book[] = [
-      {
-        title: 'TITLE'
-      }
-    ];
-
-    this.tempData = new MatTableDataSource<Book>(data);
+    this.displayedColumns = ['title', 'description', 'isbn', 'date', 'authors'];
   }
 }

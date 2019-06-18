@@ -1,10 +1,9 @@
 <mat-sidenav-container [autosize]="true">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
-    <book-form></book-form>
+    <book-form (onClick)="save($event)"></book-form>
   </mat-sidenav>
-
   <mat-sidenav-content>
-    <button mat-button (click)="toggleSidenav()">Toggle</button>
-    <book-table></book-table>
+    <button mat-button (click)="toggleSidenav()">{{ sidenav.opened ? 'Close' : 'Add' }}</button>
+    <book-table [books]="books$ | async"></book-table>
   </mat-sidenav-content>
 </mat-sidenav-container>

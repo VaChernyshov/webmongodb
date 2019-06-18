@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "hammerjs": "^2.0.8",
     "mongoose": "^5.6.0",
+    "multer": "^1.4.1",
     "ngx-material-file-input": "^1.1.1",
     "rxjs": "^6.3.3",
     "ts-node-dev": "^1.0.0-pre.40",

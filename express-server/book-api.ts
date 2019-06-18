@@ -50,7 +50,6 @@ export const updateBook = (req: Request, res: Response) => {
 
 export const addBook = (req: Request, res: Response) => {
   const book = new Book(req.body);
-
   book.save((err: any) => {
     if (err) {
       res.send(err);

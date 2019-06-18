@@ -20,5 +20,6 @@
   <mat-form-field>
     <ngx-mat-file-input [formControlName]="'image'" placeholder="Cover" ></ngx-mat-file-input>
   </mat-form-field>
+
+  <button mat-button color="primary" (click)="_onClick(formGroup.value)">Save</button>
 </div>
-<!--<pre>{{formGroup.value | json}}</pre>-->

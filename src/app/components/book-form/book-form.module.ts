@@ -3,7 +3,14 @@ import { NgModule } from '@angular/core';
 import { BookFormComponent } from './book-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule
+} from '@angular/material';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
@@ -15,7 +22,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatCheckboxModule,
     MaterialFileInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonModule
   ],
   exports: [BookFormComponent],
   declarations: [BookFormComponent],

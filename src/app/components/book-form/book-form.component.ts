@@ -1,14 +1,18 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'book-form',
-  templateUrl: 'book-form.component.html'
+  templateUrl: 'book-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class BookFormComponent implements OnInit {
 
   public formGroup: FormGroup;
+
+  @Output()
+  public onClick = new EventEmitter();
 
   @HostBinding('class.book-form')
   private hostClass: boolean = true;
@@ -21,13 +25,15 @@ export class BookFormComponent implements OnInit {
       title: new FormControl('', {
         validators: [Validators.required]
       }),
-      image: new FormControl(''),
+      image: new FormControl(null),
       authors: new FormControl(''),
       description: new FormControl(''),
-      isbn: new FormControl('', {
-        validators: [Validators.required]
-      }),
+      isbn: new FormControl(''),
       date: new FormControl('')
     });
+  }
+
+  private _onClick(event: MouseEvent) {
+    this.onClick.emit(event);
   }
 }

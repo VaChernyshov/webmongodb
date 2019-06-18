@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatTableDataSource } from '@angular/material';
 import { BookDataService } from '../../services/book-data-service';
+import { map, takeUntil } from 'rxjs/operators';
+import { Book } from '../../models/Book';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'main',
@@ -8,11 +11,25 @@ import { BookDataService } from '../../services/book-data-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
-
   @ViewChild('sidenav')
   public sidenav: MatSidenav;
 
   public opened: boolean = false;
+
+  private unsub$ = new Subject();
+  public books$ = this.dataService.getAll().pipe(
+    map((books: Book[]) => {
+      const bookList: Book[] = books.map((book: Book) => {
+        return {
+          title: book.title || '',
+          description: book.description || '',
+          isbn: book.isbn || '',
+          date: book.date || null
+        };
+      });
+      return new MatTableDataSource<Book>(books);
+    })
+  );
 
   @HostBinding('class.main-host')
   private hostClass: boolean = true;
@@ -20,15 +37,17 @@ export class MainComponent implements OnInit {
   constructor(private dataService: BookDataService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+
   }
 
   public toggleSidenav() {
     this.sidenav.toggle();
-    this.dataService.getAll()
-      .subscribe((data) => {
-        console.log('data', data);
-      })
+  }
+
+  public save(book: Book) {
+    this.dataService.save(book).subscribe();
+    this.sidenav.toggle();
   }
 
 }
