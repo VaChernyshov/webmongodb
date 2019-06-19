@@ -24,10 +24,10 @@ export class BooksStore extends EntityStore<BooksState, Book> {
     super(initialState);
   }
 
-  public updateEntitiesStore(): void {
+  public updateEntitiesStore(sort?: any): void {
     this.updateSubscription && this.updateSubscription.unsubscribe();
     this.setLoading(true);
-    this.updateSubscription = this.dataService.getAll()
+    this.updateSubscription = this.dataService.getAll(sort)
       .subscribe((entities: Book[]) => {
         const aa = entities.map((entity: Book) => {
           return {

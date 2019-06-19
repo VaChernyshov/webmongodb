@@ -1,5 +1,5 @@
 <div class="book-table__inner">
-  <table class="book-table__inner-table" mat-table matSort [dataSource]="books">
+  <table class="book-table__inner-table" mat-table matSort (matSortChange)="sort($event)" [dataSource]="books">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> TITLE</th>
       <td mat-cell *matCellDef="let row"> {{row.title}} </td>

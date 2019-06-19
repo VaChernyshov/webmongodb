@@ -13,8 +13,8 @@ export class BookDataService {
   constructor(private http: HttpClient) {
   }
 
-  public getAll(): Observable<Book[]> {
-    return this.http.get<Book[]>('http://localhost:8000/');
+  public getAll(sort: any): Observable<Book[]> {
+    return this.http.get<Book[]>('http://localhost:8000/' + (sort && `${sort.active}/${sort.direction === 'asc' ? -1 : 1}` || 'title/1'));
   }
 
   public save(book: Book): Observable<Book> {
@@ -26,8 +26,8 @@ export class BookDataService {
     );
   }
 
-  public delete(id: string) {
-    return this.http.delete<void>('http://localhost:8000/' + id);
+  public delete(id: string): Observable<Book> {
+    return this.http.delete<Book>('http://localhost:8000/' + id);
   }
 
 }

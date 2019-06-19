@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', book.allBooks);
+app.get('/:col?/:ord?', book.allBooks);
 app.get('/:id', book.getBook);
 app.get('/:id', book.getImage);
 app.post('/', book.addBook);

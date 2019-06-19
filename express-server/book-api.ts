@@ -9,7 +9,10 @@ export const allBooks = (req: Request, res: Response) => {
       res.send(books);
     }
   })
-    .select('-image -__v');
+    .select('-image -__v')
+    .sort({
+      [`${req.params.col}`]: req.params.ord
+    });
 };
 
 export const getBook = (req: Request, res: Response) => {
@@ -37,10 +40,10 @@ export const getImage = (req: Request, res: Response) => {
 export const deleteBook = (req: Request, res: Response) => {
   Book.deleteOne({ _id: req.params.id }, (err: any) => {
     if (err) {
-      res.status(401);
       res.send(err);
     } else {
-      res.send('Successfully Deleted Book');
+      res.status(200);
+      res.send();
     }
   });
 };

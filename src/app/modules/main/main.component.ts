@@ -19,18 +19,7 @@ export class MainComponent implements OnInit, OnDestroy {
   public opened: boolean = false;
 
   public books$ = this.booksQuery.selectAll().pipe(
-    tap(books => {
-      console.log('books', books);
-    }),
     map((books: Book[]) => {
-      const bookList: Book[] = books.map((book: Book) => {
-        return {
-          title: book.title || '',
-          description: book.description || '',
-          isbn: book.isbn || '',
-          date: book.date || null
-        };
-      });
       return new MatTableDataSource<Book>(books);
     })
   );

@@ -13,12 +13,12 @@ import { takeUntil } from 'rxjs/operators';
 
 export class BookTableComponent implements OnInit, OnDestroy {
 
-  private unsub$ = new Subject();
-
   @Input()
   public books: MatTableDataSource<Book>;
 
   public displayedColumns: string[];
+
+  private unsub$ = new Subject();
 
   @HostBinding('class.book-table')
   private hostClass: boolean = true;
@@ -39,11 +39,16 @@ export class BookTableComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.unsub$)
       ).subscribe(() => {
-      this.booksStore.updateEntitiesStore()
+      this.booksStore.updateEntitiesStore();
     });
   }
 
   ngOnDestroy(): void {
-    this.unsub$.unsubscribe()
+    this.unsub$.unsubscribe();
+  }
+
+  public sort(event) {
+    console.log('', event);
+    this.booksStore.updateEntitiesStore(event);
   }
 }
