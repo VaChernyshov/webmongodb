@@ -1,14 +1,19 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Book } from '../../models/Book';
+import { BooksStore } from '../../state/book.store';
 import { BookDataService } from '../../services/book-data-service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'book-table',
   templateUrl: 'book-table.component.html'
 })
 
-export class BookTableComponent implements OnInit {
+export class BookTableComponent implements OnInit, OnDestroy {
+
+  private unsub$ = new Subject();
 
   @Input()
   public books: MatTableDataSource<Book>;
@@ -18,15 +23,27 @@ export class BookTableComponent implements OnInit {
   @HostBinding('class.book-table')
   private hostClass: boolean = true;
 
-  constructor(private dataService: BookDataService) {
+  constructor(
+    private booksStore: BooksStore,
+    private dataService: BookDataService
+  ) {
   }
 
-
   ngOnInit() {
-    this.displayedColumns = ['title', 'description', 'isbn', 'date', 'authors'];
+    this.booksStore.updateEntitiesStore();
+    this.displayedColumns = ['title', 'description', 'isbn', 'date', 'authors', 'options'];
   }
 
   public deleteBook(id: string) {
-    this.dataService.delete(id).subscribe()
+    this.dataService.delete(id)
+      .pipe(
+        takeUntil(this.unsub$)
+      ).subscribe(() => {
+      this.booksStore.updateEntitiesStore()
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.unsub$.unsubscribe()
   }
 }

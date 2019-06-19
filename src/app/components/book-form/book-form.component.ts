@@ -45,5 +45,6 @@ export class BookFormComponent implements OnInit {
 
   private _onClick(event: MouseEvent) {
     this.onClick.emit(event);
+    this.formGroup.reset();
   }
 }
