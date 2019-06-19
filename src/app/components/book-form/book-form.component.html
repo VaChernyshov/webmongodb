@@ -18,8 +18,19 @@
   </mat-form-field>
 
   <mat-form-field>
-    <ngx-mat-file-input [formControlName]="'image'" placeholder="Cover" ></ngx-mat-file-input>
+    <ngx-mat-file-input [formControlName]="'image'" placeholder="Cover"></ngx-mat-file-input>
   </mat-form-field>
+
+  <div formArrayName="authors">
+    <h3>Authors</h3>
+    <button (click)="addAuthors()" mat-button>Add Author</button>
+
+    <div *ngFor="let author of authors.controls; let i=index">
+      <mat-form-field>
+        <input matInput [placeholder]="'Author ' + (i+1)" [formControlName]="i">
+      </mat-form-field>
+    </div>
+  </div>
 
   <button mat-button color="primary" (click)="_onClick(formGroup.value)">Save</button>
 </div>

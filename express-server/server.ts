@@ -16,16 +16,19 @@ mongoose.connect('mongodb://localhost:27017/library', (err: any) => {
 });
 
 app.use(parser.urlencoded());
-app.use(parser.json());
+app.use(parser.json({limit: '50mb'}));
+app.use(parser.urlencoded({limit: '50mb', extended: true}));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
   res.type('json');
   next();
 });
 
 app.get('/', book.allBooks);
 app.get('/:id', book.getBook);
+app.get('/:id', book.getImage);
 app.post('/', book.addBook);
 app.put('/:id', book.updateBook);
 app.delete('/:id', book.deleteBook);

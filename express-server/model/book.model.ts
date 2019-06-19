@@ -4,7 +4,7 @@ export interface BookModel extends mongoose.Document {
   title: string;
   authors?: string[];
   description?: string;
-  image?: Buffer;
+  image?: Buffer | string;
   isbn?: string;
   date?: Date;
 }

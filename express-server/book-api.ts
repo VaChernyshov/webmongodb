@@ -8,7 +8,8 @@ export const allBooks = (req: Request, res: Response) => {
     } else {
       res.send(books);
     }
-  });
+  })
+    .select('-image -__v');
 };
 
 export const getBook = (req: Request, res: Response) => {
@@ -18,6 +19,17 @@ export const getBook = (req: Request, res: Response) => {
       res.send(err);
     } else {
       res.send(book);
+    }
+  });
+};
+
+export const getImage = (req: Request, res: Response) => {
+  Book.findById(req.params.id, (err: any, book: any) => {
+    if (err) {
+      res.status(401);
+      res.send(err);
+    } else {
+      res.send(book.image.toString('base64'));
     }
   });
 };

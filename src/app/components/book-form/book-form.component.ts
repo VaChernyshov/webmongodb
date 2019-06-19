@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'book-form',
@@ -17,7 +17,11 @@ export class BookFormComponent implements OnInit {
   @HostBinding('class.book-form')
   private hostClass: boolean = true;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
+  }
+
+  get authors() {
+    return this.formGroup.get('authors') as FormArray;
   }
 
   ngOnInit() {
@@ -26,11 +30,17 @@ export class BookFormComponent implements OnInit {
         validators: [Validators.required]
       }),
       image: new FormControl(null),
-      authors: new FormControl(''),
+      authors: this.fb.array([
+        this.fb.control('')
+      ]),
       description: new FormControl(''),
       isbn: new FormControl(''),
       date: new FormControl('')
     });
+  }
+
+  public addAuthors() {
+    this.authors.push(this.fb.control(''));
   }
 
   private _onClick(event: MouseEvent) {
