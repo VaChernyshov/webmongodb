@@ -57,7 +57,7 @@ export const updateBook = (req: Request, res: Response) => {
         res.status(401);
         res.send(err);
       } else {
-        res.send('Successfully updated book!');
+        res.send();
       }
     }
   );

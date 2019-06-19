@@ -48,7 +48,10 @@ export class BookTableComponent implements OnInit, OnDestroy {
   }
 
   public sort(event) {
-    console.log('', event);
     this.booksStore.updateEntitiesStore(event);
+  }
+
+  public setActive(id: string) {
+    this.booksStore.setActive(id);
   }
 }

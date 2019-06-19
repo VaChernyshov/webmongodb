@@ -1,6 +1,11 @@
 <mat-sidenav-container [autosize]="true">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
-    <book-form (onClick)="save($event)"></book-form>
+    <ng-container *ngIf="(active$ | async) as book;else notedit">
+      <book-form (onClick)="update($event)"></book-form>
+    </ng-container>
+    <ng-template #notedit>
+      <book-form (onClick)="save($event)"></book-form>
+    </ng-template>
   </mat-sidenav>
   <mat-sidenav-content>
     <button mat-button (click)="toggleSidenav()">{{ sidenav.opened ? 'Close' : 'Add' }}</button>

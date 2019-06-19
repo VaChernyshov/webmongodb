@@ -1,10 +1,10 @@
 import { Book } from '../models/Book';
-import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
+import { ActiveState, EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { Subscription } from 'rxjs';
 import { BookDataService } from '../services/book-data-service';
 import { Injectable } from '@angular/core';
 
-export interface BooksState extends EntityState<Book> {
+export interface BooksState extends EntityState<Book>, ActiveState {
 }
 
 const initialState = {

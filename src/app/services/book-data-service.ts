@@ -18,16 +18,32 @@ export class BookDataService {
   }
 
   public save(book: Book): Observable<Book> {
-    return readFileAsBase64(book.image.files[0]).pipe(
-      flatMap((fileData) => {
-        book.image = fileData;
-        return this.http.post<Book>('http://localhost:8000/', book);
-      })
-    );
+    if (book.image) {
+      return readFileAsBase64(book.image.files[0]).pipe(
+        flatMap((fileData) => {
+          book.image = fileData;
+          return this.http.post<Book>('http://localhost:8000/', book);
+        })
+      );
+    }
+    return this.http.post<Book>('http://localhost:8000/', book);
   }
 
   public delete(id: string): Observable<Book> {
     return this.http.delete<Book>('http://localhost:8000/' + id);
+  }
+
+  public update(id: string, book: Book): Observable<Book> {
+    delete book.id;
+    if (book.image) {
+      return readFileAsBase64(book.image.files[0]).pipe(
+        flatMap((fileData) => {
+          book.image = fileData;
+          return this.http.put<Book>('http://localhost:8000/' + id, book);
+        })
+      );
+    }
+    return this.http.put<Book>('http://localhost:8000/' + id, book);
   }
 
 }
